@@ -31,7 +31,7 @@ const standalone=window.matchMedia('(display-mode: standalone)').matches||naviga
 function b64u(s){s=s.replace(/-/g,'+').replace(/_/g,'/');return Uint8Array.from(atob(s),c=>c.charCodeAt(0))}
 async function go(){try{
  const keyText=location.hash.slice(1); if(!keyText) throw Error('access key missing');
- const payload=await fetch('target.json?t='+Date.now(),{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('locator unavailable');return r.json()});
+ const payload=await fetch('https://raw.githubusercontent.com/ken3090bnr34-cpu/zone-review-link/main/target.json?t='+Date.now(),{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('locator unavailable');return r.json()});
  const key=await crypto.subtle.importKey('raw',b64u(keyText),{name:'AES-GCM'},false,['decrypt']);
  const plain=await crypto.subtle.decrypt({name:'AES-GCM',iv:b64u(payload.iv)},key,b64u(payload.data));
  const target=new TextDecoder().decode(plain);
